@@ -9,7 +9,7 @@
 
 Summary: Subversion activity notification
 Name: perl-SVN-Notify
-Version: 2.80
+Version: 2.84
 Release: 1%{?dist}
 License: Artistic/GPL
 Group: Applications/CPAN
@@ -37,13 +37,13 @@ Subversion activity notification.
 %setup -n %{real_name}-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS="vendor" PREFIX="%{buildroot}%{_prefix}"
-%{__make} %{?_smp_mflags}
-%{__make} %{?_smp_mflags} test
+%{__perl} Build.PL --installdirs vendor --prefix "%{buildroot}%{_prefix}"
+./Build
+./Build test
 
 %install
 %{__rm} -rf %{buildroot}
-%{__make} pure_install
+./Build pure_install
 
 ### Clean up buildroot
 find %{buildroot} -name .packlist -exec %{__rm} {} \;
@@ -53,7 +53,7 @@ find %{buildroot} -name .packlist -exec %{__rm} {} \;
 
 %files
 %defattr(-, root, root, 0755)
-%doc Changes MANIFEST META.yml README
+%doc Changes MANIFEST META.yml README.md
 %doc %{_mandir}/man3/SVN::Notify*.3pm*
 %doc %{_mandir}/man1/svnnotify.1.gz
 %{_bindir}/svnnotify
@@ -63,6 +63,9 @@ find %{buildroot} -name .packlist -exec %{__rm} {} \;
 
 
 %changelog
+* Wed Mar 25 2015 Adam Crews <adam.crews@gmail.com> - 2.84-1
+- Updated to version 2.84.
+
 * Wed Feb  3 2010 Christoph Maser <cmr@financial.com> - 2.80-1
 - Updated to version 2.80.
 
